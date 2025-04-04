@@ -48,5 +48,25 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CFBundleURLTypes</key>
+	<array>
+  <dict>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>com.googleusercontent.apps.710398868233-jh26kvmcsqtm8jgoiflagvfj7om44itc</string> <!-- Replace with your own client ID -->
+    </array>
+  </dict>
+	</array>
+	<key>GIDClientID</key>
+	<string>710398868233-jh26kvmcsqtm8jgoiflagvfj7om44itc.apps.googleusercontent.com</string>
+	
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera to take photos.</string>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to select images.</string>
+
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need access to your microphone for video recording.</string>
 </dict>
 </plist>
