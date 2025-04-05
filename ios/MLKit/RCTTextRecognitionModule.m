@@ -38,9 +38,13 @@ RCT_EXPORT_METHOD(recognizeImage:(NSString *)url
 
   MLKVisionImage *visionImage = [[MLKVisionImage alloc] initWithImage:image];
   
-  MLKTextRecognizer *textRecognizer = [MLKTextRecognizer textRecognizer];
+//  MLKTextRecognizer *textRecognizer = [MLKTextRecognizer textRecognizer];
   
-  [textRecognizer processImage:visionImage
+  // When using Devanagari script recognition SDK
+  MLKDevanagariTextRecognizerOptions *devanagariOptions = [[MLKDevanagariTextRecognizerOptions alloc] init];
+  MLKTextRecognizer *devanagariTextRecognizer = [MLKTextRecognizer textRecognizerWithOptions:devanagariOptions];
+  
+  [devanagariTextRecognizer processImage:visionImage
                     completion:^(MLKText *_Nullable result,
                                  NSError *_Nullable error) {
     if (error != nil || result == nil) {

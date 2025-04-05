@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, Button, Alert, Image, Text } from "react-native";
+import { View, Button, Alert, Image, Text, ScrollView } from "react-native";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { launchImageLibrary, launchCamera } from "react-native-image-picker";
 import { NativeModules } from 'react-native';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 const { TextRecognitionModule } = NativeModules;
 
@@ -16,7 +17,7 @@ const App = () => {
 
   useEffect(() => {
     GoogleSignin.configure({
-      iosClientId: "710398868233-jh26kvmcsqtm8jgoiflagvfj7om44itc.apps.googleusercontent.com", // Replace with your iOS client ID
+      iosClientId: '710398868233-jh26kvmcsqtm8jgoiflagvfj7om44itc.apps.googleusercontent.com',
     });
   }, []);
 
@@ -82,46 +83,55 @@ const App = () => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "white" }}>
-      {user ? (
-        <>
-          {user.photo && (
-            <Image
-              source={{ uri: user.photo }}
-              style={{ width: 50, height: 50, borderRadius: 25, margin: 10 }}
-            />
-          )}
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-            Hello, {user.name} 👋
-          </Text>
+    <SafeAreaProvider>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "white" }} edges={['top']}>
+        {user ? (
+          <ScrollView
+            contentContainerStyle={{ padding: 20, alignItems: "center" }}
+            showsVerticalScrollIndicator={false}
+          >
+            {user.photo && (
+              <Image
+                source={{ uri: user.photo }}
+                style={{ width: 50, height: 50, borderRadius: 25, margin: 10 }}
+              />
+            )}
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              Hello, {user.name} 👋
+            </Text>
 
-          {image && (
-            <Image
-              source={{ uri: image }}
-              style={{ width: 200, height: 200, marginVertical: 10 }}
-            />
-          )}
-          <Button title="Pick Image from Gallery" onPress={pickImage} />
-          <Button title="Take a Photo" onPress={takePhoto} />
-          <Button title="Sign Out" onPress={signOut} color="red" />
-          {image && (
-            <Button
-              title="Recognize Text"
-              color="#841584"
-              onPress={onPress}
-            />
-          )}
-          {resultText !== "" && (
-            <View style={{ padding: 10 }}>
-              <Text style={{ fontSize: 16, color: "#333" }}>{resultText}</Text>
-            </View>
-          )}
-        </>
-      ) : (
-        <Button title="Sign in with Google" onPress={signInWithGoogle} />
-      )}
-    </View>
+            {image && (
+              <Image
+                source={{ uri: image }}
+                resizeMode="contain"
+                style={{ width: 200, height: 200, marginVertical: 10 }}
+              />
+            )}
+            <Button title="Pick Image from Gallery" onPress={pickImage} />
+            <Button title="Take a Photo" onPress={takePhoto} />
+            <Button title="Sign Out" onPress={signOut} color="red" />
+            {image && (
+              <Button
+                title="Recognize Text"
+                color="#841584"
+                onPress={onPress}
+              />
+            )}
+            {resultText !== "" && (
+              <View style={{ padding: 10 }}>
+                <Text style={{ fontSize: 16, color: "#333" }}>{resultText}</Text>
+              </View>
+            )}
+          </ScrollView>
+        ) : (
+          <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+            <Button title="Sign in with Google" onPress={signInWithGoogle} />
+          </View>
+        )}
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
+
 };
 
 export default App;

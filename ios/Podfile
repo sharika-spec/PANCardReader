@@ -17,7 +17,7 @@ target 'PANCardReader' do
   pod 'GoogleSignIn', :modular_headers => true
   pod 'FirebaseAuth', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
-  pod 'GoogleMLKit/TextRecognition'
+  # pod 'GoogleMLKit/TextRecognition'
   pod 'GoogleMLKit/TextRecognitionDevanagari'
 
   config = use_native_modules!
