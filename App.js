@@ -23,9 +23,7 @@ const App = () => {
 
   const onPress = async () => {
     if (image) {
-      console.log('We will invoke the native module here!');
       const response = await TextRecognitionModule.recognizeImage(image);
-      console.log(response, "res")
       const extractText = (resp) => {
         if (!resp || !resp.blocks) return "";
         return resp.blocks
@@ -35,8 +33,7 @@ const App = () => {
       };
 
       const text = extractText(response);
-      setResultText(text); // Save to state
-      console.log(text, "resultText::::::::");
+      setResultText(text); 
     } else {
       Alert.alert("Error", "Please select an image first");
     }
@@ -47,12 +44,10 @@ const App = () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log("User Info:", userInfo); // Log to inspect the structure
       setUser(userInfo.data.user); // Corrected structure
 
       Alert.alert("Success", `Signed in as ${userInfo.data.user.name}`);
     } catch (error) {
-      console.log(error);
       Alert.alert("Error", "Google Sign-In failed");
     }
   };
